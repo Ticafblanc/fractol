@@ -97,6 +97,12 @@ directory:
 		@mkdir -p $(OBJ_PATH) > /dev/null 2>&1 || true
 		@echo $(BLUE) Binary $(PROJECT) directory created !!
 
+push:
+		@git add .
+		@read -p "name of commit: " INP \
+		&& git commit -m "$${INP}"
+		@git push
+
 nor:
 		@echo $(GREEN) "norminette fractol.c!"
 		norminette Includes/
