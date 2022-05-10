@@ -11,11 +11,11 @@
 # define PATH_PL "./Assets/player_left.xpm"
 # define PATH_I "./Assets/item.xpm"
 # define PATH_V "./Assets/venom.xpm"
-# define TOP 0x77
-# define DOWN 0x73
-# define LEFT 0x61
-# define RIGHT 0x64
-# define ESC 0xff1b
+# define TOP 13
+# define DOWN 1
+# define LEFT 0
+# define RIGHT 2
+# define ESC 53
 # define RESET 0x72
 
 # include <mlx.h>

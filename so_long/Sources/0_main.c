@@ -13,8 +13,8 @@ int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	if (check_map(argc, argv) < 0)
-		exit(EXIT_FAILURE);
+	if (argc != 2 || check_map(argv[1]) < 0)
+		ft_exit_strerror(EINVAL, EXIT_FAILURE)
 	start_struct(&game);
 	if (init_game(&game, argc, argv) < 0)
 		return (0);

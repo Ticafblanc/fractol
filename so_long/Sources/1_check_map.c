@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mavinici <mavinici@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/10 15:46:42 by mavinici          #+#    #+#             */
-/*   Updated: 2021/08/24 09:44:20 by mavinici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <so_long.h>
 
 /* verify if the map is rounded of walls */
@@ -63,8 +51,10 @@ int	valid_cpe(t_map *map)
 	return (1);
 }
 
-/* Call the others check functions */
-int	check_map(int )
+int	check_map(char *argv)
 {
+	if (check_extension(argv) < 0)
+		return (-1);
+	
 	
 }
