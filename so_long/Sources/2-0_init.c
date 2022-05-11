@@ -38,7 +38,6 @@ int	init_game(t_vars *vars)
 {
 	init_window(vars);
 	init_t_img(vars);
-	print_map(game);
-	game->init_game = 1;
+	put_game(vars);
 	return (1);
 }

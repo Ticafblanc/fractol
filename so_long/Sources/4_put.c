@@ -1,96 +1,52 @@
 
 #include <so_long.h>
 
-void	print_player(t_game *game, t_pos pos)
+void	*read_map(t_vars *vars, int line, int col)
 {
-	if (game->side == DOWN)
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.player.down.img, pos.x, pos.y);
-	else if (game->side == TOP)
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.player.top.img, pos.x, pos.y);
-	else if (game->side == RIGHT)
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.player.right.img, pos.x, pos.y);
+	if (vars->game->map[line][col] == 'E')
+		return (vars->img->exit->img);
+	else if (vars->game->map[line][col] == 'C')
+		return (vars->img->item->img);
+	else if (vars->game->map[line][col] == 'V')
+		return (vars->img->enemy->img);
+	else if (vars->game->map[line][col] == '1')
+		return (vars->img->wall->img);
+	else if (vars->game->map[line][col] == '0')
+		return (vars->img->emp->img);
 	else
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.player.left.img, pos.x, pos.y);
-}
-
-static void	print_sprites_cex(t_game *game, int line, int col)
-{
-	int	x;
-	int	y;
-
-	x = col * TILES;
-	y = line * TILES;
-	if (game->map.map[line][col] == 'E')
 	{
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.exit.img, x, y);
-	}
-	if (game->map.map[line][col] == 'C')
-	{
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.item.img, x, y);
-	}
-	if (game->map.map[line][col] == 'V')
-	{
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.enemy.img, x, y);
+		if (vars->player_side == DOWN)
+			return (vars->img->player_down->img);
+		else if (vars->player_side == UP)
+			return (vars->img->player_up->img);
+		else if (vars->player_side == RIGHT)
+			return (vars->img->player_right->img);
+		else
+			return (vars->img->player_left->img);
 	}
 }
 
-static void	print_sprites_wpe(t_game *game, int line, int col)
-{
-	int		x;
-	int		y;
-	t_pos	pos;
-
-	pos.x = col * TILES;
-	pos.y = line * TILES;
-	x = col * TILES;
-	y = line * TILES;
-	if (game->map.map[line][col] == '1')
-	{
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.wall.img, x, y);
-	}
-	if (game->map.map[line][col] == '0')
-	{
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->img.emp.img, x, y);
-	}
-	if (game->map.map[line][col] == 'P')
-	{
-		print_player(game, pos);
-	}
-}
-
-void	print_map(t_game *game)
+void	put_game(t_vars *vars)
 {
 	int		line;
 	int		col;
 	char	*str;
 
 	line = 0;
-	while (line < game->map.line)
+	while (line < vars->game->line)
 	{
 		col = 0;
-		while (col < game->map.colum)
+		while (col < vars->game->colum)
 		{
-			print_sprites_cex(game, line, col);
-			print_sprites_wpe(game, line, col);
+			mlx_put_image_to_window(vars->mlx, vars->win, read_map(vars, line, col), col * TILES, line * TILES);
 			col++;
 		}
 		line++;
-		str = ft_itoa(game->steps);
-		mlx_string_put(game->mlx, game->win, 25, 25, 0xFFFF00,
-			"CURRENT STEP:");
-		mlx_string_put(game->mlx, game->win, 120, 25, 0xFFFF00, str);
-		free(str);
-		if (game->end_game)
-			mlx_string_put(game->mlx, game->win, 150, 25, 0xFFFF00,
-				"YOU WIN PRESS R TO PLAY AGAIN!!");
 	}
+	mlx_string_put(vars->mlx, vars->win, 25, 25, 0xFFFF00, "Move :");
+	str = ft_itoa(game->steps);
+	mlx_string_put(game->mlx, game->win, 120, 25, 0xFFFF00, str);
+	free(str);
+	if (vars->end_game)
+		mlx_string_put(game->mlx, game->win, 150, 25, 0xFFFF00,"WIN esc to quit")
 }

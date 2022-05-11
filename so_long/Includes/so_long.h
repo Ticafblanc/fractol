@@ -46,14 +46,13 @@ typedef struct s_vars
 	t_img	*img;
 	int		end_game;
 	int		steps;
-	int		init_game;
 	int		player_side;
 }				t_vars;
 
 typedef struct s_game
 {
 	int			player_x;
-	int			player_Y;
+	int			player_y;
 	int			player_bup_x;
 	int			player_bup_y;
 	int			valid;

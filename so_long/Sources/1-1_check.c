@@ -88,7 +88,7 @@ static void	check_last_line(char *line, t_map *map)
 /* fill the array with the map 2d */
 /* This function make a backup map for when a restart is requited */
 /* The backup_map function  is in valid_maps.c file */
-char	**read_map(char *path, t_map *o_map)
+char	**read_arg(char *path, t_map *o_map)
 {
 	int		fd;
 	int		i;

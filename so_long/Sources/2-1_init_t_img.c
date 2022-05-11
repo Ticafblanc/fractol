@@ -4,11 +4,11 @@
 void	init_wall(t_vars *vars)
 {
 	vars->img->wall->img = mlx_xpm_file_to_image(vars->mlx, PATH_W, vars->img->wall->pos_x,
-			var->img->wall->pos_y);
+			vars->img->wall->pos_y);
 	vars->img->wall->pixel = mlx_get_data_addr(vars->img->wall->img, vars->img->wall->bpp,
 			vars->img->wall->line_size, vars->img->wall->endian);
 	vars->img->emp->img = mlx_xpm_file_to_image(vars->mlx, PATH_E, vars->img->emp->pos_x,
-			&img->emp->pos_y);
+			vars->img->emp->pos_y);
 	vars->img->emp->pixel = mlx_get_data_addr(vars->img->emp->img, vars->img->emp->bpp,
 			vars->img->emp->line_size, vars->img->emp->endian);
 }
@@ -25,15 +25,15 @@ void	init_exit(t_vars *vars)
 {
 	vars->img->exit->img = mlx_xpm_file_to_image(vars->mlx, PATH_EX, vars->img->exit->pos_x,
 			vars->img->exit->pos_y);
-	vars->img->exit.pixel = mlx_get_data_addr(vars->img->exit->img, vars->img->exit->bpp,
+	vars->img->exit->pixel = mlx_get_data_addr(vars->img->exit->img, vars->img->exit->bpp,
 			vars->img->exit->line_size, vars->img->exit->endian);
 }
 
 void	init_enemy(t_vars *vars)
 {
-	vars->img->enemy.img = mlx_xpm_file_to_image(vars->mlx, PATH_V, vars->img->enemy->pos_x,
+	vars->img->enemy->img = mlx_xpm_file_to_image(vars->mlx, PATH_V, vars->img->enemy->pos_x,
 			vars->img->enemy->pos_y);
-	vars->img->enemy.pixel = mlx_get_data_addr(vars->img->enemy->img, vars->img->enemy->bpp,
+	vars->img->enemy->pixel = mlx_get_data_addr(vars->img->enemy->img, vars->img->enemy->bpp,
 			vars->img->enemy->line_size, vars->img->enemy->endian);
 }
 
