@@ -1,7 +1,6 @@
 
 #include <so_long.h>
 
-/* this function will verify the argc and the map extension */
 int	valid_map(int argc, char *map_file)
 {
 	if (argc == 1)
@@ -13,7 +12,6 @@ int	valid_map(int argc, char *map_file)
 	return (1);
 }
 
-/* This function free the allocated memory of map and backup map */
 void	free_map(char **map_str, t_map *map)
 {
 	int	i;
@@ -28,7 +26,6 @@ void	free_map(char **map_str, t_map *map)
 	free(map->backup_map);
 }
 
-/* This function make a backup map and the amount collectible items */
 int	backup_map(t_map *map, char **map_str)
 {
 	int		i;
@@ -49,7 +46,6 @@ int	backup_map(t_map *map, char **map_str)
 	return (1);
 }
 
-/* Function to restart the map of the begin */
 int	recovery(t_map *map)
 {
 	int		i;

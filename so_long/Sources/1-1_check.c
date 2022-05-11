@@ -1,10 +1,6 @@
 
 #include <so_long.h>
 
-/* Return how many line are in the map */
-/* and save how many colums has the mape in o_map->colum */
-/* This function use verify function witch use check function */
-/* Theses auxiliaries functions are in check.c file. */
 int	counts(int fd, int count_lines, int count_col, t_map *o_map)
 {
 	int		size;
@@ -33,8 +29,6 @@ int	counts(int fd, int count_lines, int count_col, t_map *o_map)
 	return (count_lines);
 }
 
-/* Return How many lines has the map */
-/* This function use count function above. */
 int	lines(char *map, t_map *o_map)
 {
 	int		fd;
@@ -53,7 +47,6 @@ int	lines(char *map, t_map *o_map)
 	return (count_lines);
 }
 
-/* Allocates n space in the memory for a array with the count lines from map */
 static char	**alloc_map(char *path, t_map *o_map)
 {
 	char	**map_str;

@@ -1,13 +1,11 @@
 #include <so_long.h>
 
-/* verify if the map is rounded of walls */
 void	verify(int valid, t_map *map)
 {
 	if (map->valid == 1)
 		map->valid = valid;
 }
 
-/* Check if is a wall */
 int	check_wall(char c)
 {
 	if (c == '1')
@@ -16,9 +14,7 @@ int	check_wall(char c)
 		return (0);
 }
 
-/* Check if the charactables in the map is valid */
-/* Also store how many exit, players and collect items has the map */
-/* Store backups start position of player */
+
 int	check_c(char c, t_map *map, int col, int line)
 {
 	if (c == 'P')
@@ -39,7 +35,7 @@ int	check_c(char c, t_map *map, int col, int line)
 		return (0);
 }
 
-/* Verify if the amount of collect, exit and player is valid. */
+
 int	valid_cpe(t_map *map)
 {
 	if (map->check.collect < 1)
@@ -50,11 +46,38 @@ int	valid_cpe(t_map *map)
 		return (errors("the map must have just 1 player"));
 	return (1);
 }
-
-int	check_map(char *argv)
+void init_t_game(t_vars *vars)
 {
+	vars->game = (t_game *)malloc(sizeof(t_game));
+	if (!vars->game)
+	{
+		free(vars)
+		ft_exit_perror("init t_struct t_game failure", EXIT_FAILURE);
+	}
+	game->colum = 0;
+	game->line = 0;
+	game->valid = 1;
+	game->end_col = 0;
+	game->check_collect = 0;
+	game->check_exit = 0;
+	game->check_player = 0;
+	game->item_bup = 0;
+	return (game);
+}
+
+int	check_map(char *argv, t_vars *vars)
+{
+	char **
 	if (check_extension(argv) < 0)
 		return (-1);
+	init_t_game();
+	if (valid_map(argc, argv[1]) < 0)
+		return (-1));
+	vars->game->map = read_map(argv[1], &game->map);
+	if (vars->game->map == NULL)
+		return (-1);
+	return (0);
+
 	
 	
 }

@@ -11,12 +11,11 @@
 # define PATH_PL "./Assets/player_left.xpm"
 # define PATH_I "./Assets/item.xpm"
 # define PATH_V "./Assets/venom.xpm"
-# define TOP 13
+# define UP 13
 # define DOWN 1
 # define LEFT 0
 # define RIGHT 2
 # define ESC 53
-# define RESET 0x72
 
 # include <mlx.h>
 # include <unistd.h>
@@ -29,121 +28,68 @@
 
 # define BUFFER_SIZE 1
 
-typedef struct s_position
-{
-	int	x;
-	int	y;
-}				t_pos;
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
 
-typedef struct s_map_check
+typedef struct s_vars
 {
-	int	player;
-	int	exit;
-	int	collect;
-}				t_map_check;
+	t_game	*game;
+	void	*mlx;
+	void	*win;
+	t_img	*img;
+	int		end_game;
+	int		steps;
+	int		init_game;
+	int		player_side;
+}				t_vars;
 
-typedef struct s_map
+typedef struct s_game
 {
-	t_pos		player;
-	t_pos		player_bup;
+	int			player_x;
+	int			player_Y;
+	int			player_bup_x;
+	int			player_bup_y;
 	int			valid;
 	int			end_col;
 	int			colum;
 	int			line;
-	t_map_check	check;
+	int			check_player;
+	int			check_exit;
+	int			check_collect;
 	int			item_bup;
 	char		**map;
 	char		**backup_map;
-}				t_map;
-
-typedef struct s_data
-{
-	void	*img;
-	char	*pixel;
-	t_pos	pos;
-	t_pos	size;
-	int		bpp;
-	int		line_size;
-	int		endian;
-}				t_data;
-
-typedef struct s_side
-{
-	t_data	down;
-	t_data	top;
-	t_data	left;
-	t_data	right;
-}				t_side;
+}				t_game;
 
 typedef struct s_img
 {
-	t_data	wall;
-	t_data	emp;
-	t_data	exit;
-	t_side	player;
-	t_data	item;
-	t_data	enemy;
+	t_asset	*wall;
+	t_asset	*emp;
+	t_asset	*exit;
+	t_asset	*player_down;
+	t_asset	*player_up;
+	t_asset	*player_left;
+	t_asset	*player_right;
+	t_asset	*item;
+	t_asset	*enemy;
 }				t_img;
 
-typedef struct s_game
+typedef struct s_asset
 {
-	void	*mlx;
-	void	*win;
-	t_map	map;
-	t_img	img;
-	int		end_game;
-	int		steps;
-	int		init_game;
-	double	reset;
-	int		side;
-}				t_mlx;
-
-//utils
-void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memset(void *s, int c, size_t n);
-char	**ft_split(char const *s, char c);
-size_t	ft_strlen(const char *s);
-char	*ft_itoa(int n);
-
-//map
-char	**read_map(char *path, t_map *o_map);
-void	verify(int valid, t_map *map);
-int		check_wall(char c);
-int		check_c(char c, t_map *map, int col, int line);
-int		valid_cpe(t_map *map);
-int		check(char c, t_map *map, int col, int line);
-int		valid_map(int argc, char *map_file);
-void	free_map(char **map_str, t_map *map);
-int		check_extension(char *str, char *extension);
-int		backup_map(t_map *map, char **map_str);
-int		recovery(t_map *map);
-
-//print map
-t_img	init_image(void *mlx);
-void	print_map(t_game *game);
-void	*backup(t_map *map, char **map_str);
-
-//init sprites
-void	init_wall(t_img *img, void *mlx);
-void	init_exit(t_img *img, void *mlx);
-void	init_item(t_img *img, void *mlx);
-void	init_player(t_img *img, void *mlx);
-void	init_enemy(t_img *img, void *mlx);
-
-//erros
-int		errors(char *message);
-void	*null_erro(char *message);
-void	warning(char *message);
-
-//game
-int		init_game(t_game *game, int argc, char **argv);
-int		action(int key, t_game *game);
-int		update(t_game *game);
-int		close_win(t_game *game);
-void	check_side(t_game *game, int key);
-void	move_player(t_game *game, int line, int col, int key);
-int		verify_move(t_game *game, int line, int col, int key);
-void	reset(t_game *game);
-void	kill_player(t_game *game);
+	void	*img;
+	char	*pixel;
+	int		pos_x;
+	int		pos_y;
+	int		bpp;
+	int		line_size;
+	int		endian;
+}				t_asset;
 
 #endif
