@@ -24,6 +24,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <limits.h>
+# include <errno.h>
 # include <libft.h>
 
 # define BUFFER_SIZE 1
@@ -40,17 +41,14 @@ enum {
 
 typedef struct s_vars
 {
-	t_game	*game;
-	void	*mlx;
-	void	*win;
-	t_img	*img;
-	int		end_game;
-	int		steps;
-	int		player_side;
-}				t_vars;
-
-typedef struct s_game
-{
+	void		*mlx;
+	void		*win;
+	t_img		*img;
+	char		**map;
+	int			enemy_win;
+	int			end_game;
+	int			steps;
+	int			player_side;
 	int			player_x;
 	int			player_y;
 	int			player_bup_x;
@@ -63,9 +61,8 @@ typedef struct s_game
 	int			check_exit;
 	int			check_collect;
 	int			item_bup;
-	char		**map;
-	char		**backup_map;
-}				t_game;
+	
+}				t_vars;
 
 typedef struct s_img
 {

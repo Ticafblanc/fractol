@@ -46,24 +46,7 @@ int	valid_cpe(t_map *map)
 		return (errors("the map must have just 1 player"));
 	return (1);
 }
-void init_t_game(t_vars *vars)
-{
-	vars->game = (t_game *)malloc(sizeof(t_game));
-	if (!vars->game)
-	{
-		free(vars)
-		ft_exit_perror("init t_struct t_game failure", EXIT_FAILURE);
-	}
-	game->colum = 0;
-	game->line = 0;
-	game->valid = 1;
-	game->end_col = 0;
-	game->check_collect = 0;
-	game->check_exit = 0;
-	game->check_player = 0;
-	game->item_bup = 0;
-	return (game);
-}
+
 
 int	check_map(char *argv, t_vars *vars)
 {
