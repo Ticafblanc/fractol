@@ -1,6 +1,6 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
-trest 
+
 # define TILES 50
 # define PATH_W "./Assets/wall.xpm"
 # define PATH_E "./Assets/empty.xpm"
