@@ -1,17 +1,6 @@
 
 #include <so_long.h>
 
-int	valid_map(int argc, char *map_file)
-{
-	if (argc == 1)
-		return (errors("don't have argv"));
-	if (argc > 2)
-		warning("Just the first argv will be used");
-	if (check_extension(map_file, ".ber") <= 0)
-		return (errors("Wrong extension of the map"));
-	return (1);
-}
-
 void	free_map(char **map_str, t_map *map)
 {
 	int	i;
@@ -24,26 +13,6 @@ void	free_map(char **map_str, t_map *map)
 	while (i <= map->line)
 		free(map->backup_map[i++]);
 	free(map->backup_map);
-}
-
-int	backup_map(t_map *map, char **map_str)
-{
-	int		i;
-	int		line;
-
-	line = map->line;
-	map->backup_map = malloc(sizeof(char *) * line + 1);
-	if (!map->backup_map)
-		return (0);
-	i = 0;
-	while (i < line)
-	{
-		map->backup_map[i] = ft_strdup(map_str[i]);
-		i++;
-	}
-	map->backup_map[i] = NULL;
-	map->item_bup = map->check.collect;
-	return (1);
 }
 
 int	recovery(t_map *map)
@@ -69,3 +38,25 @@ int	recovery(t_map *map)
 	map->check.collect = map->item_bup;
 	return (1);
 }
+
+int	put_error_arg(int error)
+{
+	if (error == 1)
+		ft_putstr_fd("the map need at least 1 collect item", STDERR_FILENO);
+	else if (error == 2)
+		rft_putstr_fd("the map need at least 1 exit", STDERR_FILENO);
+	else if (error == 3)
+		ft_putstr_fd("the map must have just 1 player", STDERR_FILENO);
+	else if (error == 4)
+		ft_putstr_fd("the map must not have closed walls", STDERR_FILENO);
+	else if (error == 5)
+		ft_putstr_fd("the card should only have a rectangular shape", STDERR_FILENO);
+	else if (error == 6)
+		ft_putstr_fd("Wrong extension of the map", STDERR_FILENO);
+	else if (error == 7)
+		ft_putstr_fd("Wrong path of the map", STDERR_FILENO);
+	else
+		ft_putstr_fd("just one map !!", STDERR_FILENO);
+	return (EINVAL);
+}
+

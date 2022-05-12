@@ -1,64 +1,92 @@
 #include <so_long.h>
 
-void	verify(int valid, t_map *map)
-{
-	if (map->valid == 1)
-		map->valid = valid;
-}
 
-int	check_wall(char c)
+int	check_wall_up(t_vars *vars)
 {
-	if (c == '1')
-		return (1);
-	else
-		return (0);
-}
-
-
-int	check_c(char c, t_map *map, int col, int line)
-{
-	if (c == 'P')
+	while (vars->map[vars->wall_y][vars->wall_x])
 	{
-		map->check.player += 1;
-		map->player.x = col;
-		map->player.y = line - 1;
-		map->player_bup.x = col;
-		map->player_bup.y = line - 1;
+		if (vars->map[vars->wall_y][vars->wall_x] == '1')
+			vars->wall_x++;
+		else
+			return (-1);
 	}
-	if (c == 'E')
-		map->check.exit += 1;
-	if (c == 'C')
-		map->check.collect += 1;
-	if (c == 'P' || c == '1' || c == 'C' || c == 'E' || c == '0' || c == 'V')
-		return (1);
-	else
-		return (0);
+	vars->wall_y++;
+	return (0);
 }
 
-
-int	valid_cpe(t_map *map)
+int	check_wall_side(t_vars *vars)
 {
-	if (map->check.collect < 1)
-		return (errors("the map need at least 1 collect item"));
-	if (map->check.exit < 1)
-		return (errors("the map need at least 1 exit"));
-	if (map->check.player > 1 || map->check.player < 1)
-		return (errors("the map must have just 1 player"));
-	return (1);
+	while (vars->map[vars->wall_y])
+	{
+		if (vars->map[vars->wall_y][0] == '1'
+			&& vars->map[vars->wall_y][vars->wall_x] == '1')
+			vars->wall_y++;
+		else
+			return (-1);
+	}
+	return (0);
 }
 
+int	check_wall_down(t_vars *vars)
+{
+	int	i;
+
+	i = 1;
+	while (vars->map[vars->wall_y][i])
+	{
+		if (vars->map[vars->wall_y][i] == '1')
+			i++;
+		else
+			return (-1);
+	}
+	return (0);
+}
+
+int	read_arg(char *argv, t_vars *vars)
+{
+	int		fd;
+	int		i;
+	char	**map_str;
+
+	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	while (get_next_line(fd))
+		i++;
+	close(fd);
+	vars->map = (char **)ft_calloc((i + 1), sizeof(char *));
+	if (!vars->map)
+		return (-1);
+	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	i = 0;
+	vars->map[i] = get_next_line(fd);
+	while (vars->map[i++])
+		vars->map[i] = get_next_line(fd);
+	close(fd);	
+	return (0);
+}
 
 int	check_map(char *argv, t_vars *vars)
 {
-	char **
-	if (check_extension(argv) < 0)
+	int	error;
+
+	if (ft_check_extension(argv, ".ber") < 0)
+	{ 
+		vars->error_map = 6;
 		return (-1);
-	init_t_game();
-	if (valid_map(argc, argv[1]) < 0)
-		return (-1));
-	vars->game->map = read_map(argv[1], &game->map);
-	if (vars->game->map == NULL)
+	}
+	if (read_arg(argv, vars) < 0)
+	{
+		vars->error_map = 7;
 		return (-1);
+	}
+	if (check_wall_up(vars) < 0 || check_wall_side(vars) < 0
+		|| check_wall_down(vars) < 0 || vars->wall_x == vars->wall_y)
+		return (-1);
+	if (check_caractere(vars) < 0)
+		return (-1);	
 	return (0);
 
 	

@@ -1,17 +1,17 @@
 
 #include <so_long.h>
 
-void	*read_map(t_vars *vars, int line, int col)
+void	*read_map(t_vars *vars, int y, int x)
 {
-	if (vars->game->map[line][col] == 'E')
+	if (vars->map[y][x] == 'E')
 		return (vars->img->exit->img);
-	else if (vars->game->map[line][col] == 'C')
+	else if (vars->map[y][x] == 'C')
 		return (vars->img->item->img);
-	else if (vars->game->map[line][col] == 'V')
+	else if (vars->map[y][x] == 'V')
 		return (vars->img->enemy->img);
-	else if (vars->game->map[line][col] == '1')
+	else if (vars->map[y][x] == '1')
 		return (vars->img->wall->img);
-	else if (vars->game->map[line][col] == '0')
+	else if (vars->map[y][x] == '0')
 		return (vars->img->emp->img);
 	else
 	{
@@ -28,25 +28,25 @@ void	*read_map(t_vars *vars, int line, int col)
 
 void	put_game(t_vars *vars)
 {
-	int		line;
-	int		col;
+	int		y;
+	int		x;
 	char	*str;
 
-	line = 0;
-	while (line < vars->game->line)
+	y = 0;
+	while (y < vars->wall_y)
 	{
-		col = 0;
-		while (col < vars->game->colum)
+		x = 0;
+		while (x < vars->wall_x)
 		{
-			mlx_put_image_to_window(vars->mlx, vars->win, read_map(vars, line, col), col * TILES, line * TILES);
-			col++;
+			mlx_put_image_to_window(vars->mlx, vars->win, read_map(vars, y, x), x * TILES, y * TILES);
+			x++;
 		}
-		line++;
+		y++;
 	}
 	mlx_string_put(vars->mlx, vars->win, 25, 25, 0xFFFF00, "Move :");
-	str = ft_itoa(game->steps);
-	mlx_string_put(game->mlx, game->win, 120, 25, 0xFFFF00, str);
+	str = ft_itoa(vars->steps);
+	mlx_string_put(vars->mlx, vars->win, 120, 25, 0xFFFF00, str);
 	free(str);
 	if (vars->end_game)
-		mlx_string_put(game->mlx, game->win, 150, 25, 0xFFFF00,"WIN esc to quit")
+		mlx_string_put(vars->mlx, vars->win, 150, 25, 0xFFFF00,"WIN esc to quit");
 }

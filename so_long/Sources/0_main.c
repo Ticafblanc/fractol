@@ -45,29 +45,25 @@ t_vars	*init_t_vars(void)
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
 		ft_exit_perror("init t_struct t_vars failure", EXIT_FAILURE);
+	vars->error_map = 0;
+	vars->wall_x = 0;
+	vars->wall_y = 0;
 	vars->enemy_win = 0;
 	vars->end_game = 0;
 	vars->steps = 0;
 	vars->player_side = DOWN;
 	vars->player_x = 0;
 	vars->player_y = 0;
-	int			player_bup_x;
-	int			player_bup_y;
-	int			end_col;
-	int			colum;
-	int			line;
-	int			check_player;
-	vars->check_collect = 0;
-	int			item_bup;
+	vars->item = 0;
 }
 
 int	main(int argc, char **argv)
 {
 	t_vars	*vars;
 
-	vars = init_t_vars();		
+	vars = init_t_vars();	
 	if (argc != 2 || check_map(argv[1], vars) < 0)
-		ft_exit_strerror(EINVAL, EXIT_FAILURE);
+		ft_exit_strerror(put_error_arg(vars->error_map), EXIT_FAILURE);
 	if (init_game(vars) < 0)
 		ft_exit_perror("init game failure", EXIT_FAILURE);
 	mlx_hook(vars->win, ON_DESTROY, 0, close, (void *)&vars);

@@ -18,13 +18,9 @@
 # define ESC 53
 
 # include <mlx.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include <fcntl.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <limits.h>
 # include <errno.h>
+# include <stdbool.h>
 # include <libft.h>
 
 # define BUFFER_SIZE 1
@@ -45,23 +41,16 @@ typedef struct s_vars
 	void		*win;
 	t_img		*img;
 	char		**map;
+	int			error_map;
+	int			wall_x;
+	int			wall_y;
+	int			player_x;
+	int			player_y;
+	int			player_side;
+	int			item;
 	int			enemy_win;
 	int			end_game;
 	int			steps;
-	int			player_side;
-	int			player_x;
-	int			player_y;
-	int			player_bup_x;
-	int			player_bup_y;
-	int			valid;
-	int			end_col;
-	int			colum;
-	int			line;
-	int			check_player;
-	int			check_exit;
-	int			check_collect;
-	int			item_bup;
-	
 }				t_vars;
 
 typedef struct s_img
