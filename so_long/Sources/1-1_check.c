@@ -51,6 +51,8 @@ int	check_cara(t_vars *vars, int x, int y)
 	else if (vars->map[y][x] == 'p')
 	{
 		vars->steps++;
+		vars->player_x = x;
+		vars->player_y = y;
 		return (0);
 	}
 	return (-1);

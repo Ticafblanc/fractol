@@ -147,16 +147,19 @@ push:
 clean: 
 		@$(CL) $(OBJ)
 		@$(MAKE) clean -C ../libft
+		@$(MAKE) clean -C ../minilibx
 		@echo $(RED) Object $(notdir $(OBJ)) is delete !
 
 fclean: clean 
 		@$(CL) $(BIN)
 		@$(MAKE) fclean -C ../libft
+		@$(MAKE) clean -C ../minilibx
 		@echo $(RED) Binary $(notdir $(BIN)) is delete !
 
 finish: 
 		@$(CL) $(BIN_PATH)
 		@$(MAKE) finish -C ../libft
+		@$(MAKE) clean -C ../minilibx
 		@echo $(RED) All $(PROJECT) is delete !
 
 re:	fclean all

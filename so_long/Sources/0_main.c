@@ -1,6 +1,6 @@
 #include <so_long.h>
 
-int	close(t_vars *vars)
+int	close_game(t_vars *vars)
 {
 	free_map(vars);
 	exit(EXIT_SUCCESS);
@@ -8,27 +8,27 @@ int	close(t_vars *vars)
 
 int	read_key(int keycode, t_vars *vars)
 {
-	int	line;
-	int	col;
+	int	y;
+	int	x;
 
-	if (vars->end_game == 1 || (keycode != ESC && keycode != UP 
-		&& keycode != DOWN && keycode != LEFT && keycode != RIGHT))
-		return (0);
-	line = vars->player_y;
-	col = vars->player_x;
 	if (keycode == ESC)
-		close(vars);
-	else if (keycode == UP)
-		line--;
+		close_game(vars);
+	if (vars->end_game == 1 || (keycode != UP && keycode != DOWN 
+		&& keycode != LEFT && keycode != RIGHT))
+		return (0);
+	y = vars->player_y;
+	x = vars->player_x;
+	if (keycode == UP)
+		y--;
 	else if (keycode == DOWN)
-		line++;
+		y++;
 	else if (keycode == LEFT)
-		col--;
+		x--;
 	else if (keycode == RIGHT)
-		col++;
+		x++;
 	check_side(vars, keycode);
-	if (vars->map[line][col] != '1')
-		check_move (vars, line, col, keycode);
+	if (vars->map[y][x] != '1')
+		check_move (vars, y, x);
 	return (0);
 }
 
@@ -55,6 +55,7 @@ t_vars	*init_t_vars(void)
 	vars->player_x = 0;
 	vars->player_y = 0;
 	vars->item = 0;
+	return (vars);
 }
 
 int	main(int argc, char **argv)
@@ -66,8 +67,8 @@ int	main(int argc, char **argv)
 		ft_exit_strerror(put_error_arg(vars->error_map), EXIT_FAILURE);
 	if (init_game(vars) < 0)
 		ft_exit_perror("init game failure", EXIT_FAILURE);
-	mlx_hook(vars->win, ON_DESTROY, 0, close, (void *)&vars);
-	mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)&vars);
+	mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
+	mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
 	mlx_loop_hook(vars->mlx, update, &vars);
 	mlx_loop(vars->mlx);
 }

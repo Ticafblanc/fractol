@@ -47,6 +47,8 @@ void	put_game(t_vars *vars)
 	str = ft_itoa(vars->steps);
 	mlx_string_put(vars->mlx, vars->win, 120, 25, 0xFFFF00, str);
 	free(str);
-	if (vars->end_game)
+	if (vars->end_game == 1 && vars->item == 0)
 		mlx_string_put(vars->mlx, vars->win, 150, 25, 0xFFFF00,"WIN esc to quit");
+	if (vars->enemy_win == 1 || (vars->end_game == 1 && vars->item > 0))
+		mlx_string_put(vars->mlx, vars->win, 150, 25, 0xFFFF00,"LOSE esc to quit");
 }

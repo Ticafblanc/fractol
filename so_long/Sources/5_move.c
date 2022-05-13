@@ -13,23 +13,17 @@ void	check_side(t_vars *vars, int keycode)
 		vars->player_side = LEFT;
 }
 
-void	check_move(t_vars *vars, int line, int col, int key)
+void	check_move(t_vars *vars, int y, int x)
 {
-	int	y;
-	int	x;
-
-	y = vars->map.player.y;
-	x = game->map.player.x;
-	if (vars->map[line][col] == 'C')
-		vars->check_collect--;		
-	if (vars->map[line][col] == 'E')
+	if (vars->map[y][x] == 'C')
+		vars->item--;		
+	if (vars->map[y][x] == 'E')
 		vars->end_game = 1;
-	if (vars->map[line][col] == 'V')
+	if (vars->map[y][x] == 'V')
 		vars->enemy_win = 1;
-	game->map.map[y][x] = '0';
-	vars->map[line][col] = 'P';
-	vars->player_y = line;
-	vars->player_x = col;
-	game->steps++;
-	return (1);
+	vars->map[vars->player_y][vars->player_x] = '0';
+	vars->map[y][x] = 'P';
+	vars->player_y = y;
+	vars->player_x = x;
+	vars->steps++;
 }

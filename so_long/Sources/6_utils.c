@@ -1,42 +1,20 @@
 
 #include <so_long.h>
 
-void	free_map(char **map_str, t_map *map)
+void	free_map(t_vars *vars)
 {
-	int	i;
-
-	i = 0;
-	while (i <= map->line)
-		free(map_str[i++]);
-	free(map_str);
-	i = 0;
-	while (i <= map->line)
-		free(map->backup_map[i++]);
-	free(map->backup_map);
-}
-
-int	recovery(t_map *map)
-{
-	int		i;
-	int		line;
-
-	i = 0;
-	while (i <= map->line)
-		free(map->map[i++]);
-	free(map->map);
-	line = map->line;
-	map->map = malloc(sizeof(char *) * line + 1);
-	if (!map->map)
-		return (0);
-	i = 0;
-	while (i < line)
-	{
-		map->map[i] = ft_strdup(map->backup_map[i]);
-		i++;
-	}
-	map->map[i] = NULL;
-	map->check.collect = map->item_bup;
-	return (1);
+	free (vars->img->wall);
+	free (vars->img->emp);
+	free (vars->img->item);
+	free (vars->img->exit);
+	free (vars->img->enemy);
+	free (vars->img->player_down);
+	free (vars->img->player_up);
+	free (vars->img->player_left);
+	free (vars->img->player_right);
+	free (vars->img);
+	ft_free_pp(vars->map);
+	free(vars);
 }
 
 int	put_error_arg(int error)
@@ -44,7 +22,7 @@ int	put_error_arg(int error)
 	if (error == 1)
 		ft_putstr_fd("the map need at least 1 collect item", STDERR_FILENO);
 	else if (error == 2)
-		rft_putstr_fd("the map need at least 1 exit", STDERR_FILENO);
+		ft_putstr_fd("the map need at least 1 exit", STDERR_FILENO);
 	else if (error == 3)
 		ft_putstr_fd("the map must have just 1 player", STDERR_FILENO);
 	else if (error == 4)

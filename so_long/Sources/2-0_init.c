@@ -27,10 +27,7 @@ void	init_t_img(t_vars *vars)
 	init_wall(vars);
 	init_exit(vars);
 	init_item(vars);
-	init_player_down(vars);
-	init_player_up(vars);
-	init_player_left(vars);
-	init_player_right(vars);
+	init_player(vars);
 	init_enemy(vars);
 }
 
