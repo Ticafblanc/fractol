@@ -75,6 +75,7 @@ typedef struct s_vars
 	int			enemy_win;
 	int			end_game;
 	int			steps;
+	int			time;
 }				t_vars;
 
 	//0_main.c

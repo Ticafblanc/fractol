@@ -33,10 +33,10 @@ void	put_game(t_vars *vars)
 	char	*str;
 
 	y = 0;
-	while (y < vars->wall_y)
+	while (y <= vars->wall_y)
 	{
 		x = 0;
-		while (x < vars->wall_x)
+		while (x <= vars->wall_x)
 		{
 			mlx_put_image_to_window(vars->mlx, vars->win, read_map(vars, y, x), x * TILES, y * TILES);
 			x++;

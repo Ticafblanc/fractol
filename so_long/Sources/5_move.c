@@ -20,7 +20,10 @@ void	check_move(t_vars *vars, int y, int x)
 	if (vars->map[y][x] == 'E')
 		vars->end_game = 1;
 	if (vars->map[y][x] == 'V')
+	{
 		vars->enemy_win = 1;
+		vars->end_game = 1;
+	}
 	vars->map[vars->player_y][vars->player_x] = '0';
 	vars->map[y][x] = 'P';
 	vars->player_y = y;

@@ -4,8 +4,8 @@
 void	init_window(t_vars *vars)
 {
 	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, vars->wall_x * TILES,
-			vars->wall_y * TILES, "so_long");
+	vars->win = mlx_new_window(vars->mlx, (vars->wall_x + 1) * TILES,
+			(vars->wall_y + 1) * TILES, "so_long");
 }
 
 void	init_t_img(t_vars *vars)

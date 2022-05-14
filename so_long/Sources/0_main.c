@@ -29,11 +29,38 @@ int	read_key(int keycode, t_vars *vars)
 	check_side(vars, keycode);
 	if (vars->map[y][x] != '1')
 		check_move (vars, y, x);
+	put_game(vars);
+	vars->time = 50000;
 	return (0);
 }
 
 int	update(t_vars *vars)
 {
+	if (vars->time > 0)
+	{
+		vars->time--;
+		return (0);
+	}
+	if (vars->player_side == DOWN && vars->time == 0)
+	{
+		vars->player_side = LEFT;
+		vars->time = 5000;
+	}
+	else if (vars->player_side == LEFT && vars->time == 0)
+	{
+			vars->player_side = UP;
+			vars->time = 5000;
+	}
+	else if (vars->player_side == UP && vars->time == 0)
+	{
+			vars->player_side = RIGHT;
+			vars->time = 5000;
+	}
+	else if (vars->player_side == RIGHT && vars->time == 0)
+	{
+			vars->player_side = DOWN;
+			vars->time = 5000;
+	}
 	put_game(vars);
 	return (0);
 }
@@ -55,6 +82,7 @@ t_vars	*init_t_vars(void)
 	vars->player_x = 0;
 	vars->player_y = 0;
 	vars->item = 0;
+	vars->time = 50000;
 	return (vars);
 }
 
@@ -69,6 +97,6 @@ int	main(int argc, char **argv)
 		ft_exit_perror("init game failure", EXIT_FAILURE);
 	mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
 	mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
-	mlx_loop_hook(vars->mlx, update, &vars);
+	mlx_loop_hook(vars->mlx, update, vars);
 	mlx_loop(vars->mlx);
 }

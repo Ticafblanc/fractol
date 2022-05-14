@@ -1,5 +1,5 @@
-#include <so_long.h>
 
+#include <so_long.h>
 
 int	check_wall_up(t_vars *vars)
 {
