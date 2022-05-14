@@ -13,10 +13,9 @@ int	check_caractere(t_vars *vars)
 		x = 1;
 		while (x != vars->wall_x)
 		{
-			if (check_cara(vars, x, y) >= 0)
-				x++;
-			else
+			if (check_cara(vars, x, y) < 0)
 				return (-1);
+			x++;
 		}
 		y++;
 	}
@@ -42,13 +41,13 @@ int	check_cara(t_vars *vars, int x, int y)
 		vars->item++;
 		return (0);
 	}
-	else if (vars->map[y][x] == 'v')
+	else if (vars->map[y][x] == 'V')
 		return (0);
 	else if (vars->map[y][x] == '0')
 		return (0);
 	else if (vars->map[y][x] == '1')
 		return (0);
-	else if (vars->map[y][x] == 'p')
+	else if (vars->map[y][x] == 'P')
 	{
 		vars->steps++;
 		vars->player_x = x;

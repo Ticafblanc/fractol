@@ -18,27 +18,25 @@ int	check_wall_side(t_vars *vars)
 {
 	while (vars->map[vars->wall_y])
 	{
-		printf("\n1map = %s", vars->map[vars->wall_y]);
 		if(vars->map[vars->wall_y][0] != '1'
 			|| vars->map[vars->wall_y][vars->wall_x] != '1')
 			return (-1);
 		vars->wall_y++;
 	}
-	return (0);
+	vars->wall_y--;
+	return (1);
 }
 
 int	check_wall_down(t_vars *vars)
 {
-	printf("down");
 	int	i;
 
 	i = 1;
-	while (vars->map[vars->wall_y][i] != '\n')
+	while (vars->map[vars->wall_y][i])
 	{
-		if (vars->map[vars->wall_y][i] == '1')
-			i++;
-		else
+		if (vars->map[vars->wall_y][i] != '1')
 			return (-1);
+		i++;
 	}
 	return (0);
 }
@@ -47,6 +45,7 @@ int	read_arg(char *argv, t_vars *vars)
 {
 	int		fd;
 	int		i;
+	char	*temp;
 
 	i = 0;
 	fd = open(argv, O_RDONLY);
@@ -55,19 +54,20 @@ int	read_arg(char *argv, t_vars *vars)
 	while (get_next_line(fd))
 		i++;
 	close(fd);
-	vars->map = (char **)ft_calloc((i + 2), sizeof(char *));
+	vars->map = (char **)ft_calloc((i + 1), sizeof(char *));
 	if (!vars->map)
 		return (-1);
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		return (-1);
 	i = 0;
-	while ((vars->map[i] = get_next_line(fd)))
+	while ((temp = get_next_line(fd)))
 	{
-		if (vars->map[i][ft_str_len(vars->map[i]) - 1] != '\0')
-			vars->map[i][ft_str_len(vars->map[i]) - 1] = '\0';
+		vars->map[i] = ft_strtrim(temp, "\n");
+		free(temp);
 		i++;
 	}
+	vars->map[i] = NULL;
 	close(fd);	
 	return (0);
 }
@@ -95,7 +95,7 @@ int	check_map(char *argv, t_vars *vars)
 		vars->error_map = 5;
 		return (-1);
 	}
-	if (check_caractere(vars) < 4)
-		return (-1);	
+	if (check_caractere(vars) < 0)
+		return (-1);
 	return (0);	
 }
