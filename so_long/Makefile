@@ -111,7 +111,7 @@ $(OBJ_PATH)%.o:$(SRC_PATH)%.c
 		@$(CC) $(CC_FLAGS) $(INC_FLAGS) $(INC2_FLAGS) -c $< -o $@
 		@echo $(BLUE) $(notdir $@) is created !!
 
-$(BIN): title libft minilibx directory $(OBJ)
+$(BIN): libft minilibx title directory $(OBJ)
 		@$(CC) $(OBJ) $(LIB_FLAGS) $(LIB2_FLAGS) -o $(BIN)
 		@echo $(BLUE) $(notdir $(BIN)) is created !!
 

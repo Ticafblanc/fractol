@@ -13,8 +13,8 @@ int	read_key(int keycode, t_vars *vars)
 
 	if (keycode == ESC)
 		close_game(vars);
-	if (vars->end_game == 1 || (keycode != UP && keycode != DOWN 
-		&& keycode != LEFT && keycode != RIGHT))
+	if (vars->end_game == 1 || (keycode != UP && keycode != DOWN
+			&& keycode != LEFT && keycode != RIGHT))
 		return (0);
 	y = vars->player_y;
 	x = vars->player_x;
@@ -41,26 +41,7 @@ int	update(t_vars *vars)
 		vars->time--;
 		return (0);
 	}
-	if (vars->player_side == DOWN && vars->time == 0)
-	{
-		vars->player_side = LEFT;
-		vars->time = 5000;
-	}
-	else if (vars->player_side == LEFT && vars->time == 0)
-	{
-			vars->player_side = UP;
-			vars->time = 5000;
-	}
-	else if (vars->player_side == UP && vars->time == 0)
-	{
-			vars->player_side = RIGHT;
-			vars->time = 5000;
-	}
-	else if (vars->player_side == RIGHT && vars->time == 0)
-	{
-			vars->player_side = DOWN;
-			vars->time = 5000;
-	}
+	update_utils(vars);
 	put_game(vars);
 	return (0);
 }
@@ -90,11 +71,14 @@ int	main(int argc, char **argv)
 {
 	t_vars	*vars;
 
-	vars = init_t_vars();	
+	vars = init_t_vars();
 	if (argc != 2 || check_map(argv[1], vars) < 0)
+	{
+		ft_free_pp(vars->map);
+		free(vars);
 		ft_exit_strerror(put_error_arg(vars->error_map), EXIT_FAILURE);
-	if (init_game(vars) < 0)
-		ft_exit_perror("init game failure", EXIT_FAILURE);
+	}
+	init_game(vars);
 	mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
 	mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
 	mlx_loop_hook(vars->mlx, update, vars);

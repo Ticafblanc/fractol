@@ -16,7 +16,7 @@ void	check_side(t_vars *vars, int keycode)
 void	check_move(t_vars *vars, int y, int x)
 {
 	if (vars->map[y][x] == 'C')
-		vars->item--;		
+		vars->item--;
 	if (vars->map[y][x] == 'E')
 		vars->end_game = 1;
 	if (vars->map[y][x] == 'V')

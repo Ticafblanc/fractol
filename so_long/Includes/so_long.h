@@ -38,12 +38,8 @@ enum {
 typedef struct s_asset
 {
 	void	*img;
-	char	*pixel;
-	int		pos_x;
-	int		pos_y;
-	int		bpp;
-	int		line_size;
-	int		endian;
+	int		width;
+	int		height;
 }				t_asset;
 
 typedef struct s_img
@@ -86,26 +82,20 @@ int		close_game(t_vars *vars);
 
 	//1-0_check.c
 int		check_map(char *argv, t_vars *vars);
+int		fill_map(char *argv, t_vars *vars);
 int		read_arg(char *argv, t_vars *vars);
-int		check_wall_down(t_vars *vars);
-int		check_wall_side(t_vars *vars);
-int		check_wall_up(t_vars *vars);
 
 	//1-1_check.c
 int		check_cara(t_vars *vars, int x, int y);
 int		check_caractere(t_vars *vars);
+int		check_wall_down(t_vars *vars);
+int		check_wall_side(t_vars *vars);
+int		check_wall_up(t_vars *vars);
 
-	//2-0_init.c
-int		init_game(t_vars *vars);
+	//2_init.c
+void	init_game(t_vars *vars);
 void	init_t_img(t_vars *vars);
-void	init_window(t_vars *vars);
-
-	//2-1_init_t_img.c
-void	init_player(t_vars *vars);
-void	init_enemy(t_vars *vars);
-void	init_exit(t_vars *vars);
-void	init_item(t_vars *vars);
-void	init_wall(t_vars *vars);
+void	init_asset(t_vars *vars);
 
 	//4_put.c
 void	put_game(t_vars *vars);
@@ -118,5 +108,6 @@ void	check_side(t_vars *vars, int keycode);
 	//6_utils.c
 int		put_error_arg(int error);
 void	free_map(t_vars *vars);
+void	update_utils(t_vars *vars);
 
 #endif

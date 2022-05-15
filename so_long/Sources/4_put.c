@@ -32,23 +32,22 @@ void	put_game(t_vars *vars)
 	int		x;
 	char	*str;
 
-	y = 0;
-	while (y <= vars->wall_y)
+	y = -1;
+	while (++y <= vars->wall_y)
 	{
-		x = 0;
-		while (x <= vars->wall_x)
-		{
-			mlx_put_image_to_window(vars->mlx, vars->win, read_map(vars, y, x), x * TILES, y * TILES);
-			x++;
-		}
-		y++;
+		x = -1;
+		while (++x <= vars->wall_x)
+			mlx_put_image_to_window(vars->mlx, vars->win,
+				read_map(vars, y, x), x * TILES, y * TILES);
 	}
 	mlx_string_put(vars->mlx, vars->win, 25, 25, 0xFFFF00, "Move :");
 	str = ft_itoa(vars->steps);
-	mlx_string_put(vars->mlx, vars->win, 120, 25, 0xFFFF00, str);
+	mlx_string_put(vars->mlx, vars->win, 75, 25, 0xFFFF00, str);
 	free(str);
 	if (vars->end_game == 1 && vars->item == 0)
-		mlx_string_put(vars->mlx, vars->win, 150, 25, 0xFFFF00,"WIN esc to quit");
+		mlx_string_put(vars->mlx, vars->win, 100, 25,
+			0xFFFF00, "WIN esc to quit");
 	if (vars->enemy_win == 1 || (vars->end_game == 1 && vars->item > 0))
-		mlx_string_put(vars->mlx, vars->win, 150, 25, 0xFFFF00,"LOSE esc to quit");
+		mlx_string_put(vars->mlx, vars->win, 100, 25,
+			0xFFFF00, "LOSE esc to quit");
 }

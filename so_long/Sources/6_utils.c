@@ -28,7 +28,8 @@ int	put_error_arg(int error)
 	else if (error == 4)
 		ft_putstr_fd("the map must not have closed walls", STDERR_FILENO);
 	else if (error == 5)
-		ft_putstr_fd("the card should only have a rectangular shape", STDERR_FILENO);
+		ft_putstr_fd("the card should only have a rectangular shape",
+			STDERR_FILENO);
 	else if (error == 6)
 		ft_putstr_fd("Wrong extension of the map", STDERR_FILENO);
 	else if (error == 7)
@@ -38,3 +39,26 @@ int	put_error_arg(int error)
 	return (EINVAL);
 }
 
+void	update_utils(t_vars *vars)
+{
+	if (vars->player_side == DOWN && vars->time == 0)
+	{
+		vars->player_side = LEFT;
+		vars->time = 5000;
+	}
+	else if (vars->player_side == LEFT && vars->time == 0)
+	{
+			vars->player_side = UP;
+			vars->time = 5000;
+	}
+	else if (vars->player_side == UP && vars->time == 0)
+	{
+			vars->player_side = RIGHT;
+			vars->time = 5000;
+	}
+	else if (vars->player_side == RIGHT && vars->time == 0)
+	{
+			vars->player_side = DOWN;
+			vars->time = 5000;
+	}
+}
