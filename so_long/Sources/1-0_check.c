@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   1-0_check.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/17 18:30:15 by mdoquocb          #+#    #+#             */
+/*   Updated: 2022/05/17 18:35:11 by mdoquocb         ###   ########.ca       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <so_long.h>
 
@@ -70,6 +81,6 @@ void	check_map(char *argv, t_vars *vars)
 	{
 		ft_free_pp(vars->map);
 		free(vars);
-		ft_exit_perror("the map need at least 1 collect item, 1 exit and just 1 player", EXIT_FAILURE);
+		ft_exit_perror("1 item, 1 exit and 1 player", EXIT_FAILURE);
 	}
 }

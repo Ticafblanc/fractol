@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/17 18:35:40 by mdoquocb          #+#    #+#             */
+/*   Updated: 2022/05/17 18:36:06 by mdoquocb         ###   ########.ca       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -74,10 +86,10 @@ typedef struct s_vars
 }				t_vars;
 
 	//0_main.c
-t_vars	*init_t_vars(void);
-int		update(t_vars *vars);
-int		read_key(int keycode, t_vars *vars);
-int		close_game(t_vars *vars);
+t_vars		*init_t_vars(void);
+int			update(t_vars *vars);
+int			read_key(int keycode, t_vars *vars);
+int			close_game(t_vars *vars);
 
 	//1-0_check.c
 void		check_map(char *argv, t_vars *vars);
@@ -85,28 +97,28 @@ void		fill_map(char *argv, t_vars *vars);
 void		read_arg(char *argv, t_vars *vars);
 
 	//1-1_check.c
-int		check_cara(t_vars *vars, int x, int y);
-int		check_caractere(t_vars *vars);
-int		check_wall_down(t_vars *vars);
-int		check_wall_side(t_vars *vars);
-int		check_wall_up(t_vars *vars);
+int			check_cara(t_vars *vars, int x, int y);
+int			check_caractere(t_vars *vars);
+int			check_wall_down(t_vars *vars);
+int			check_wall_side(t_vars *vars);
+int			check_wall_up(t_vars *vars);
 
 	//2_init.c
-void	init_game(t_vars *vars);
-void	init_t_img(t_vars *vars);
-void	init_asset(t_vars *vars);
+void		init_game(t_vars *vars);
+void		init_t_img(t_vars *vars);
+void		init_asset(t_vars *vars);
 
 	//4_put.c
-void	put_game(t_vars *vars);
-void	*read_map(t_vars *vars, int y, int x);
+void		put_game(t_vars *vars);
+void		*read_map(t_vars *vars, int y, int x);
 
 	//5_move.c
-void	check_move(t_vars *vars, int y, int x);
-void	check_side(t_vars *vars, int keycode);
+void		check_move(t_vars *vars, int y, int x);
+void		check_side(t_vars *vars, int keycode);
 
 	//6_utils.c
-int		put_error_arg(int error);
-void	free_map(t_vars *vars);
-void	update_utils(t_vars *vars);
+int			put_error_arg(int error);
+void		free_map(t_vars *vars);
+void		update_utils(t_vars *vars);
 
 #endif
