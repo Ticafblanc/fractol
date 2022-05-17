@@ -19,7 +19,6 @@
 
 # include <mlx.h>
 # include <fcntl.h>
-# include <errno.h>
 # include <stdbool.h>
 # include <libft.h>
 
@@ -81,9 +80,9 @@ int		read_key(int keycode, t_vars *vars);
 int		close_game(t_vars *vars);
 
 	//1-0_check.c
-int		check_map(char *argv, t_vars *vars);
-int		fill_map(char *argv, t_vars *vars);
-int		read_arg(char *argv, t_vars *vars);
+void		check_map(char *argv, t_vars *vars);
+void		fill_map(char *argv, t_vars *vars);
+void		read_arg(char *argv, t_vars *vars);
 
 	//1-1_check.c
 int		check_cara(t_vars *vars, int x, int y);

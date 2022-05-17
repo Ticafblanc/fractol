@@ -71,16 +71,15 @@ int	main(int argc, char **argv)
 {
 	t_vars	*vars;
 
-	vars = init_t_vars();
-	if (argc != 2 || check_map(argv[1], vars) < 0)
+	if (argc == 2 && ft_check_extension(argv[1], ".ber") > 0)
 	{
-		ft_free_pp(vars->map);
-		free(vars);
-		ft_exit_strerror(put_error_arg(vars->error_map), EXIT_FAILURE);
+		vars = init_t_vars();
+		check_map(argv[1], vars);
+		init_game(vars);
+		mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
+		mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
+		mlx_loop_hook(vars->mlx, update, vars);
+		mlx_loop(vars->mlx);
 	}
-	init_game(vars);
-	mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
-	mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
-	mlx_loop_hook(vars->mlx, update, vars);
-	mlx_loop(vars->mlx);
+	ft_exit_perror("just one map extension .ber !! ", EXIT_FAILURE);
 }

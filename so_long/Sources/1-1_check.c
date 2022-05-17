@@ -21,12 +21,6 @@ int	check_caractere(t_vars *vars)
 		vars->steps = 0;
 		return (0);
 	}
-	if (vars->end_game == 0)
-		vars->error_map = 2;
-	if (vars->item == 0)
-		vars->error_map = 1;
-	if (vars->steps < 1 || vars->steps > 1)
-		vars->error_map = 1;
 	return (-1);
 }
 
@@ -47,7 +41,8 @@ int	check_wall_side(t_vars *vars)
 {
 	while (vars->map[vars->wall_y])
 	{
-		if (vars->map[vars->wall_y][0] != '1'
+		if (ft_strlen(vars->map[vars->wall_y]) != (size_t)vars->wall_x + 1
+			|| vars->map[vars->wall_y][0] != '1'
 			|| vars->map[vars->wall_y][vars->wall_x] != '1')
 			return (-1);
 		vars->wall_y++;

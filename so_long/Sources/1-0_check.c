@@ -1,7 +1,7 @@
 
 #include <so_long.h>
 
-int	read_arg(char *argv, t_vars *vars)
+void	read_arg(char *argv, t_vars *vars)
 {
 	int		fd;
 	int		i;
@@ -10,7 +10,7 @@ int	read_arg(char *argv, t_vars *vars)
 	i = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		return (-1);
+		ft_exit_perror("Wrong path of the map", EXIT_FAILURE);
 	temp = get_next_line(fd);
 	while (temp)
 	{
@@ -18,16 +18,15 @@ int	read_arg(char *argv, t_vars *vars)
 		temp = get_next_line(fd);
 		i++;
 	}
+	printf("%d", i);
 	close(fd);
-	vars->map = (char **)ft_calloc(i, sizeof(char *));
+	vars->map = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!vars->map)
-		return (-1);
-	if (fill_map(argv, vars) < 0)
-		return (-1);
-	return (0);
+		ft_exit_strerror(errno, EXIT_FAILURE);
+	fill_map(argv, vars);
 }
 
-int	fill_map(char *argv, t_vars *vars)
+void	fill_map(char *argv, t_vars *vars)
 {
 	int		fd;
 	int		i;
@@ -35,7 +34,7 @@ int	fill_map(char *argv, t_vars *vars)
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		return (-1);
+		ft_exit_perror("Wrong path of the map", EXIT_FAILURE);
 	i = 0;
 	temp = get_next_line(fd);
 	while (temp)
@@ -47,33 +46,30 @@ int	fill_map(char *argv, t_vars *vars)
 	}
 	vars->map[i] = NULL;
 	close(fd);
-	return (0);
 }
 
-int	check_map(char *argv, t_vars *vars)
+void	check_map(char *argv, t_vars *vars)
 {
-	if (ft_check_extension(argv, ".ber") < 0)
-	{
-		vars->error_map = 6;
-		return (-1);
-	}
-	if (read_arg(argv, vars) < 0)
-	{
-		vars->error_map = 7;
-		return (-1);
-	}
+	read_arg(argv, vars);
 	if (check_wall_up(vars) < 0 || check_wall_side(vars) < 0
 		|| check_wall_down(vars) < 0)
 	{
-		vars->error_map = 4;
-		return (-1);
+		ft_free_pp(vars->map);
+		free(vars);
+		ft_exit_perror("the map must not have closed walls",
+			EXIT_FAILURE);
 	}
 	if (vars->wall_x == vars->wall_y)
 	{
-		vars->error_map = 5;
-		return (-1);
+		ft_free_pp(vars->map);
+		free(vars);
+		ft_exit_perror("the card should only have a rectangular shape",
+			EXIT_FAILURE);
 	}
 	if (check_caractere(vars) < 0)
-		return (-1);
-	return (0);
+	{
+		ft_free_pp(vars->map);
+		free(vars);
+		ft_exit_perror("the map need at least 1 collect item, 1 exit and just 1 player", EXIT_FAILURE);
+	}
 }
